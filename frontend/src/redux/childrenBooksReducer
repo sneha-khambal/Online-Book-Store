@@ -1,0 +1,40 @@
+import { FETCH_BOOKS_DATA,FETCH_BOOK_ERROR,FETCH_BOOK_SUCCESS } from "./actions";
+
+const initialState = {
+    childrenBooksDataLoading : true,
+    childrenBooksData : [],
+    childrenBooksDataError : null
+}
+
+const childrenBooksReducer = (state = initialState,action)=>{
+
+    switch (action.type) {
+        case FETCH_BOOKS_DATA:
+            return {
+                ...state,
+                childrenBooksDataLoading: true,
+              };
+            
+        case FETCH_BOOK_SUCCESS:
+            return {
+                 ...state,
+                childrenBooksDataLoading: false,
+                childrenBooksData: action.payload,
+                childrenBooksDataError: null,
+                };  
+       case FETCH_BOOK_ERROR:
+            return {
+                ...state,
+                childrenBooksDataLoading: false,
+                childrenBooksData:  [],
+                childrenBooksDataError: action.payload,
+                };     
+           
+    
+        default:
+            return state;
+    }
+
+}
+
+export default childrenBooksReducer;
