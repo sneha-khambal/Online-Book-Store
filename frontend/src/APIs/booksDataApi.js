@@ -10,7 +10,5 @@ const AxiosInstance = axios.create({
 
 export const  fetchBooksData = (data)=>{
 
-    return AxiosInstance.get(`subjects/children.json`, {
-        params: data, // ✅ Properly pass as query string
-      });
+    return AxiosInstance.get(`subjects/${data}.json`);
 }

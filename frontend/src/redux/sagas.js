@@ -6,7 +6,7 @@ import { fetchBooksData } from "../APIs/booksDataApi";
 console.log('call from saga')
 function* fetchBooksSaga(action){
   try {
-    console.log('call saga api')
+    console.log('call saga api' + action.payload)
     const response = yield call(fetchBooksData,action.payload);
     console.log(response.data.works);
     yield put(fetchBooksSuccess(response.data.works));

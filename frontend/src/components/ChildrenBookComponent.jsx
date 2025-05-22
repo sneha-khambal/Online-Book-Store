@@ -6,7 +6,7 @@ import useChildrenBooksHook from '../redux/reduxHook';
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'; // Font Awesome
 
 
-export const ChildrenBookComponent = () => {
+ const ChildrenBookComponent = ({bookType}) => {
      const {
     childrenBooksData,
     childrenBooksDataError,
@@ -16,7 +16,8 @@ export const ChildrenBookComponent = () => {
  
 
   useEffect(() => {
-   fetchChildrenBooks();
+    console.log(bookType)
+   fetchChildrenBooks(bookType);
   }, []);
 
   useEffect(()=>{
@@ -79,3 +80,5 @@ export const ChildrenBookComponent = () => {
 </>
   )
 }
+
+export default ChildrenBookComponent;

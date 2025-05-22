@@ -8,8 +8,8 @@ import { fetchBooksData } from "./actions";
     const childrenBooksData = useSelector((state)=>state.childrenBooks.childrenBooksData);
     const childrenBooksDataError = useSelector((state)=>state.childrenBooks.childrenBooksDataError);
 
-    const fetchChildrenBooks = useCallback(()=>{
-        dispatch(fetchBooksData())
+    const fetchChildrenBooks = useCallback((bookType)=>{
+        dispatch(fetchBooksData(bookType))
     },[dispatch])
 
     return{
