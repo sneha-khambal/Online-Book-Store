@@ -64,7 +64,7 @@ import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'; // Font Awesome
           <div className=" flex flex-col gap-3 items-center justify-center relative group overflow-hidden">
          <div className='absolute inset-0 bg-white  -translate-y-full group-hover:opacity-50 group-hover:translate-y-0 transition-all duration-500'></div>
 
-         <img className='h-[250px]' src={`https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`} alt="" srcset="" />
+         <img className='h-[250px]' src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`} alt="" srcset="" />
           <h5 > {book.title}</h5>
          <small>$20</small>
          

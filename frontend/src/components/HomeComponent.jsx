@@ -1,11 +1,28 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
-import { FaChevronDown } from "react-icons/fa";
+import { FaChevronDown, FaShoppingCart } from "react-icons/fa";
 import { DropdownComponent } from "./dropdownComponent";
 import ChildrenBookComponent from "./childrenBookComponent";
+import { SliderComponent } from "./SliderComponent";
 
 const HomeComponent = () => {
+  const categoryList = [
+    "Book",
+    "Usedbooks",
+    "Sales Off",
+    "Biographies",
+    "Cookbooks",
+    "Education",
+    "Engineering",
+  ];
+  const showCategories = 5;
+  const [showListItem,setListItem] = useState(showCategories)
+  const [categories, setCategories] = useState(false);
+
+  // book section 
+  const [bookType,setBookType] = useState('new arrival')
+
   return (
     // <div>
     //      <Link to={`/books/children`}>
@@ -28,14 +45,15 @@ const HomeComponent = () => {
           <span className="pl-3">Sign In</span>
         </div>
       </header>
-      <section className="flex justify-between py-15 ">
-        <h1
-          style={{ color: "oklch(87.9% 0.169 91.605)" }}
-          className="text-2xl font-sans "
+      <section className="flex justify-between my-15 px-10">
+        <i
+          style={{ color: "oklch(87.9% 0.169 91.605)", fontFamily: "emoji" }}
+          className="text-5xl font-emoji "
         >
           Koparion
-        </h1>
-        <ul className="flex justify-between ml-4">
+        </i>
+
+        <ul className="flex justify-between ml-4 items-center">
           <li>
             {" "}
             <DropdownComponent
@@ -72,32 +90,43 @@ const HomeComponent = () => {
             />
           </li>
         </ul>
-        <img src="mycart" alt="mCart" />
+        <FaShoppingCart size={50} />
       </section>
       <section id="searchBox" className="bg-gray-100 w-full py-5">
         <span className="group">
           <h4 className="bg-black text-white rounded m-5 px-5 flex justify-between ">
             <strong className="m-1">All Categories</strong>
-            <div className=" m-1">
+            <div
+              className=" m-1"
+              onClick={() => {
+                setCategories(!categories);
+              }}
+            >
               <div className="bg-white w-5 rounded h-1  my-1"></div>
               <div className="bg-white w-5 rounded h-1  my-1"></div>
               <div className="bg-white w-5 rounded h-1  my-1"></div>
             </div>
           </h4>
-          <ul
-            id="categoriesList"
-            className="absolute w-full  bg-white border-solid-gray rounded shadow-lg opacity-0  group-hover:opacity-100 group-hover:visible transition-opacity duration-200 z-10"
-          >
-            <li>Book</li>
-            <li>Usedbooks</li>
-            <li>Sales Off</li>
-            <li>Biographies</li>
-            <li>Cookbooks</li>
-            <li>Education</li>
-            <li>Engineering</li>
-            <li> + More Categories</li>
-            <li> - Less Menu</li>
-          </ul>
+          {categories ? (
+            <ul
+              id="categoriesList"
+              className="absolute w-230  bg-white border-solid-gray rounded shadow-lg z-10 items-center mx-10 "
+            >
+              {categoryList && categoryList.slice(0,showListItem).map((item,index)=>(
+                 <li className="p-2">{item}</li>
+
+              ))}
+           
+           {showListItem <= showCategories ?
+            <li className="p-2" onClick={()=>{setListItem(categoryList.length)}}> + More Categories</li>
+          :
+               <li className="p-2" onClick={()=>{setListItem(showCategories)}}> - Less Menu</li>
+          }
+              
+            </ul>
+          ) : (
+            ""
+          )}
         </span>
 
         {/* <div id="searchBooks">
@@ -158,13 +187,13 @@ const HomeComponent = () => {
           </p>
         </div>
         <ul className="grid grid-cols-3 place-items-center">
-          <li className="hover:text-orange-500">NEW ARRIVAL</li>
-          <li className="hover:text-orange-500">ONSALE</li>
-          <li className="hover:text-orange-500">FEATURED PRODUCTS</li>
+          <li className="hover:text-orange-500" onClick={()=>{setBookType('new arrival')}}>NEW ARRIVAL</li>
+          <li className="hover:text-orange-500" onClick={()=>{setBookType('on sale')}}>ONSALE</li>
+          <li className="hover:text-orange-500" onClick={()=>{setBookType('featured')}}>FEATURED PRODUCTS</li>
         </ul>
-        <ChildrenBookComponent />
-        <div>{/* card section */}</div>
-        <div>{/* cove section */}</div>
+     
+        <SliderComponent bookType={bookType} />
+   
       </section>
 
       <section>
@@ -181,13 +210,13 @@ const HomeComponent = () => {
             <tbody>
               <tr>
                 <td>
-                  <ChildrenBookComponent />
+                  <ChildrenBookComponent bookType={'book'} />
                 </td>
                 <td>
-                  <ChildrenBookComponent />
+                  <ChildrenBookComponent bookType={'audio'} />
                 </td>
                 <td>
-                  <ChildrenBookComponent />
+                  <ChildrenBookComponent bookType={'childrens'} />
                 </td>
               </tr>
             </tbody>
@@ -294,7 +323,7 @@ const HomeComponent = () => {
           <li className="px-5">Blog</li>
         </ul>
 
-<hr className="my-6 border-t border-gray-10" />
+        <hr className="my-6 border-t border-gray-10" />
 
         <table className=" w-full">
           <thead>
@@ -349,8 +378,6 @@ const HomeComponent = () => {
         </table>
 
         <hr className="my-6 border-t border-gray-10" />
-
-
       </footer>
     </>
   );

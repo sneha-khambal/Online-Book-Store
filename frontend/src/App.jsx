@@ -20,8 +20,8 @@ function App() {
       <BrowserRouter>
     <Routes>
     <Route path='/' element={<HomeComponent  />}/>
-    <Route path='/books/children' element={<ChildrenBookComponent bookType={'children'} />}/>
-    <Route path='/books/comics' element={<ChildrenBookComponent bookType={'comics'} />}/>
+    {/* <Route path='/books/children' element={<ChildrenBookComponent bookType={'children'} />}/>
+    <Route path='/books/comics' element={<ChildrenBookComponent bookType={'comics'} />}/> */}
     </Routes>
     </BrowserRouter>
 

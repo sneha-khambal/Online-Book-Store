@@ -8,8 +8,8 @@ function* fetchBooksSaga(action){
   try {
     console.log('call saga api' + action.payload)
     const response = yield call(fetchBooksData,action.payload);
-    console.log(response.data.works);
-    yield put(fetchBooksSuccess(response.data.works));
+    console.log(response.data);
+    yield put(fetchBooksSuccess(response.data.docs));
   } catch (error) {
     console.log(error)
     yield put(fetchBooksError(error));
