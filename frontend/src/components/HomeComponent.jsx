@@ -37,20 +37,30 @@ const HomeComponent = () => {
 
     <>
       <header className="bg-gray h-[60px] py-5   border-solid border-y-1 border-bottom-gray-300 m-auto place-items-center ">
-      <div className="flex justify-between w-220 pl-[45px]">
-          <DropdownComponent title={"INR"} data={["INR", "USD", "GBP", "EUR"]} />
+     {/* <section className="flex justify-between m-auto w-320 "> */}
+          {/* <DropdownComponent title={"INR"} data={["INR", "USD", "GBP", "EUR"]} />
 
         <div
           id="profileInfo"
-          className="grid grid-cols-3 divide-x-3 divide-solid divide-gray-500 h-5   "
+          className="grid grid-cols-3 divide-x-3 divide-solid divide-gray-500 h-5 "
         >
           <span className="pr-3">My Account</span>
           <span className="pl-3">Checkout</span>
           <span className="pl-3">Sign In</span>
-        </div>
-      </div>
+        </div> */}
+        <ul className="flex justify-center  ">
+          <li className="">
+                      <DropdownComponent title={"INR"} data={["INR", "USD", "GBP", "EUR"]} />
+
+          </li>
+                
+          <li className="pr-3 ml-220">My Account</li>
+          <li className="pl-3">Checkout</li>
+          <li className="pl-3">Sign In</li>
+        </ul>
+     {/* </section> */}
       </header>
-      <section className="flex justify-between my-15  m-auto w-300 ">
+      <section className="flex justify-between  p-10 m-auto w-300 ">
         <i
           style={{ color: "oklch(87.9% 0.169 91.605)", fontFamily: "emoji" }}
           className="text-5xl font-emoji "
@@ -97,9 +107,9 @@ const HomeComponent = () => {
         </ul>
         <FaShoppingCart size={50} />
       </section>
-      <section id="searchBox" className="bg-gray-100 w-full py-5">
+      <section id="searchBox" className="bg-gray-100 w-full py-5 ">
         <span className="group">
-          <h4 className="bg-black text-white rounded m-5 px-5 flex justify-between ">
+          <h4 className="bg-black text-white rounded m-5 px-5 flex justify-between bg-cover ">
             <strong className="m-1">All Categories</strong>
             <div
               className=" m-1"
@@ -115,7 +125,7 @@ const HomeComponent = () => {
           {categories ? (
             <ul
               id="categoriesList"
-              className="absolute w-230  bg-white border-solid-gray rounded shadow-lg z-10 items-center mx-10 "
+              className="absolute w-230  bg-white border-solid-gray rounded shadow-lg z-10 items-center mx-10 w-full "
             >
               {categoryList &&
                 categoryList
@@ -156,9 +166,8 @@ const HomeComponent = () => {
       </section>
       <section
         id="shopNow"
-        className="bg-red-300 h-100 relative content-center bg-cover"
-      style={{ backgroundImage: "url('/src/assets/portrait-4489207_1280.jpg')" }} >
-        <h1 className="text-2xl text-white text-center mb-5">Do it Yourself</h1>
+        className="bg-red-300 h-100 mb-10"  >
+        {/* <h1 className="text-2xl text-white text-center mb-5">Do it Yourself</h1>
         <div className="grid grid-cols-2 w-30 m-auto ">
           <span className="bg-yellow-500 rounded p-3 text-white">-20%</span>
           <span className="text-orange-500 block mx-2">
@@ -173,7 +182,8 @@ const HomeComponent = () => {
           >
             Shop Now
           </a>
-        </div>
+        </div> */}
+        <SliderComponent bgImage={[`/src/assets/portrait-4489207_1280.jpg`,`/src/assets/book-1835799_1280.jpg`,`/src/assets/colorful-791927_1280.jpg`]}/>
       </section>
       <section id="bookSection" className="grid grid-cols-4 grid-row-5 gap-5 my-20 mt-6 m-auto w-300">
         <div className="row-span-6 col-span-2   rounded shadow h-100 bg-cover " style={{ backgroundImage: "url('/src/assets/books-3482286_1280.jpg')" }} >
@@ -336,7 +346,7 @@ const HomeComponent = () => {
         </div>
       </section>
 
-      <section className="shippingInfo my-15 my-15 m-auto w-300">
+      <section className="shippingInfo  py-15 m-auto w-300">
         <ul className="grid grid-cols-4 place-items-center">
           <li className="flex place-items-center gap-2">
             <FaShippingFast size={30} />
@@ -373,7 +383,7 @@ const HomeComponent = () => {
         </ul>
       </section>
 
-      <section className=" tweets grid grid-cols-2 place-items-center p-15 bg-gray-200 w-full">
+      <section className=" tweets grid grid-cols-2 place-items-center p-15 bg-gray-200 w-full ">
         <div>
           <h2>LATEST TWEETS</h2>
           <div>
