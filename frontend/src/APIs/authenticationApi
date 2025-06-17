@@ -1,0 +1,13 @@
+import axios from "axios";
+
+
+const AxiosInstance = axios.create({
+      baseURL: "https://openlibrary.org/",
+    });
+    
+
+
+export const  accountCreationApiCall = (data)=>{
+
+    return AxiosInstance.get(`search.json?q=${data}`);
+}

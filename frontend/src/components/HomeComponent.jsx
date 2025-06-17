@@ -165,7 +165,7 @@ const HomeComponent = () => {
       </section>
       <section
         id="bookSection"
-        className="grid grid-cols-4 grid-row-5 gap-5 my-20 mt-6 m-auto w-full px-5 lg:px-20"
+        className="grid grid-cols-4 grid-row-5   gap-5 my-20 mt-6 m-auto w-full px-5 lg:px-20"
       >
         <div
           className="row-span-6 col-span-2   rounded shadow h-100 bg-cover "
