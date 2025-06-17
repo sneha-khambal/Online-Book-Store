@@ -9,6 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { DropdownComponent } from "./dropdownComponent";
 import { FaShoppingCart } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
  
 export function StickyNavbar({title}) {
@@ -44,9 +45,9 @@ export function StickyNavbar({title}) {
         color="blue-gray"
         className="  font-normal"
       >
-        <a href="#" className="flex items-center">
+       <Link to={`/MyAccount`}>
           My Account
-        </a>
+       </Link>
       </Typography>
       <Typography
         as="li"
