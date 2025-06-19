@@ -2,12 +2,16 @@ import axios from "axios";
 
 
 const AxiosInstance = axios.create({
-      baseURL: "https://openlibrary.org/",
+      baseURL: "http://localhost:3000",
     });
     
 
 
 export const  accountCreationApiCall = (data)=>{
 
-    return AxiosInstance.get(`search.json?q=${data}`);
+    return AxiosInstance.post(`user/accountCreation`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
 }
