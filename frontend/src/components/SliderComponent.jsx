@@ -7,7 +7,7 @@ import '../App.css';
 
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import ChildrenBookComponent from './childrenBookComponent';
-import useChildrenBooksHook from '../redux/reduxHook';
+import hook from '../redux/reduxHook';
 import { motion } from 'framer-motion';
 
 
@@ -20,7 +20,7 @@ export const SliderComponent = ({bookType,slide,bgImage}) => {
     childrenBooksDataError,
     childrenBooksDataLoading,
     fetchChildrenBooks
- } = useChildrenBooksHook();
+ } = hook.useChildrenBooksHook();
   useEffect(() => {
      console.log(bookType)
     fetchChildrenBooks(bookType);

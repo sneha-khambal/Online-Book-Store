@@ -16,7 +16,7 @@ import { StickyNavbar } from "./NavbarComponent";
 import { MobileNav } from "@material-tailwind/react";
 import { ResponsiveNav } from "./ResponsiveNav";
 import { motion } from "framer-motion";
-import useChildrenBooksHook from "../redux/reduxHook";
+import hook from "../redux/reduxHook";
 import { FaTwitter, FaGoogle, FaFacebook, FaYoutube } from 'react-icons/fa';
 
 
@@ -40,7 +40,7 @@ const HomeComponent = () => {
 
        const {
       childrenBooksData 
-   } = useChildrenBooksHook();
+   } = hook.useChildrenBooksHook();
 
   return (
     // <div>

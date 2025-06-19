@@ -28,8 +28,8 @@ import { accountCreationAction, accountCreationError, fetchBooksData } from "./a
     const accountCreationData = useSelector((state)=>state.accountCreation.accountCreationData);
     const accountCreationError = useSelector((state)=>state.accountCreation.accountCreationError);
     
-    const fetchAccountCreationData = useCallback(()=>{
-dispatch(accountCreationAction())
+    const fetchAccountCreationData = useCallback((data)=>{
+dispatch(accountCreationAction(data))
     },[dispatch]);
 
     return{
