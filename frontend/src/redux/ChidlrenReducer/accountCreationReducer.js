@@ -1,4 +1,4 @@
-import { ACCOUNT_CREATION_DATA,ACCOUNT_CREATION_SUCCESS,ACCOUNT_CREATION_ERROR } from "./actions";
+import { ACCOUNT_CREATION_DATA,ACCOUNT_CREATION_SUCCESS,ACCOUNT_CREATION_ERROR } from "../actions";
 
 const initialState = {
     accountCreationDataLoading : true,

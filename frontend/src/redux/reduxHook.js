@@ -39,4 +39,22 @@ dispatch(accountCreationAction(data))
 
 }
 
+ const addToCartHook = ()=>{
+    const dispatch = useDispatch();
+    
+     const cartDataLoading = useSelector((state)=>state.accountCreation.accountCreationDataLoading);
+    const accountCreationData = useSelector((state)=>state.accountCreation.accountCreationData);
+    const accountCreationError = useSelector((state)=>state.accountCreation.accountCreationError);
+    
+    const fetchAccountCreationData = useCallback((data)=>{
+dispatch(accountCreationAction(data))
+    },[dispatch]);
+
+    return{
+        accountCreationData,accountCreationLoading,accountCreationError,fetchAccountCreationData
+    }
+
+
+}
+
 export default{ useChildrenBooksHook , useAccountCreationHook};

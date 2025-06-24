@@ -91,7 +91,8 @@ try {
 
 userAuthRouter.get('/addToCart',verifyToken,(req,res)=>{
 try {
-  res.status(200).send({'message':'token graunted'})
+  console.log(req.body)
+  res.status(200).send({'message':'added to cart'})
 } catch (error) {
      console.error("Error creating user:", error);
     return res.status(500).json({
