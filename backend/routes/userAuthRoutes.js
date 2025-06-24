@@ -57,11 +57,54 @@ userAuthRouter.post("/accountCreation", async (req, res) => {
   }
 });
 
+userAuthRouter.post("/signIn",async(req,res)=>{
+try {
+    const {email,password} = req.body;
+ 
+ const user = await userAuth.findOne({email:email.toLowerCase()});
+ if(!user){return res.status(400).send('user not found with Email')};
+
+ const passwordMatch = bcrypt.compare(password,user.password); 
+  if(!passwordMatch){return res.status(400).send('Password Incorrect.')};
+
+  const token = jwt.sign({id:user._id},process.env.JWT_SECRET,{ expiresIn: '10m' })
+  res.status(200).send({'token created ':token})
+} catch (error) {
+    console.error("Error creating user:", error);
+    return res.status(500).json({
+      message: "Server error occurred.",
+    });
+}
+
+});
+
+userAuthRouter.get('/checkout',verifyToken,(req,res)=>{
+try {
+  res.status(200).send({'message':'token graunted'})
+} catch (error) {
+     console.error("Error creating user:", error);
+    return res.status(500).json({
+      message: "Server error occurred.",
+    });
+}
+});
+
+userAuthRouter.get('/addToCart',verifyToken,(req,res)=>{
+try {
+  res.status(200).send({'message':'token graunted'})
+} catch (error) {
+     console.error("Error creating user:", error);
+    return res.status(500).json({
+      message: "Server error occurred.",
+    });
+}
+});
+
 // Middleware to verify token
 function verifyToken(req, res, next) {
   const token = req.headers['authorization']?.split(' ')[1]; // Bearer TOKEN
   if (!token) return res.status(403).json({ error: 'No token provided' });
-
+ 
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) return res.status(401).json({ error: 'Invalid token' });
     req.userId = decoded.id;

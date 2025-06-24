@@ -45,10 +45,10 @@ export function StickyNavbar({title}) {
         color="blue-gray"
         className="  font-normal"
       >
-       <Link to={`/MyAccount`}>
+       <Link to={`/myAccount/signUp`} >
           My Account
        </Link>
-      </Typography>
+      </Typography> 
       <Typography
         as="li"
         variant="small"
@@ -65,9 +65,10 @@ export function StickyNavbar({title}) {
         color="blue-gray"
         className="  font-normal"
       >
-        <a href="#" className="flex items-center">
-          Sign In
-        </a>
+        
+             <Link to={`/myAccount/signIn`}  >
+            Sign In
+       </Link>
       </Typography>
       {/* <Typography
         as="li"

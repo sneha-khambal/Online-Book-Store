@@ -21,7 +21,8 @@ function App() {
       <BrowserRouter>
     <Routes>
     <Route path='/' element={<HomeComponent  />}/>
-    <Route path='/MyAccount' element={<AccountPageComponent   />}/>
+    <Route path='/myAccount/:type' element={<AccountPageComponent   />}/>
+    {/* <Route path='/signIn' element={<AccountPageComponent  type={'signIn'}  />}/> */}
     {/* <Route path='/books/comics' element={<ChildrenBookComponent bookType={'comics'} />}/> */}
     </Routes>
     </BrowserRouter>
