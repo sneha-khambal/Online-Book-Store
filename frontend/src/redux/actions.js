@@ -10,6 +10,10 @@ export const ACCOUNT_CREATION_ERROR = 'ACCOUNT_CREATION_ERROR';
 export const ADD_TO_CART_DATA = 'ADD_TO_CART_DATA';
 export const ADD_TO_CART_SUCCESS = 'ADD_TO_CART_SUCCESS';
 export const ADD_TO_CART_ERROR = 'ADD_TO_CART_ERROR';
+
+export const GET_CART_DATA = 'GET_CART_DATA';
+export const GET_CART_SUCCESS = 'GET_CART_SUCCESS';
+export const GET_CART_ERROR = 'GET_CART_ERROR';
  
 console.log('action')
 export const fetchBooksData =(data)=>({
@@ -53,5 +57,20 @@ export const addToCartSuccess = (data)=>({
 });
 export const addToCartError = (data)=>({
     type:ADD_TO_CART_ERROR,
+    payload:data
+});
+
+
+export const getCartDataAction =(data)=>({
+    type: GET_CART_DATA,
+    payload:data
+});
+
+export const getCartSuccess = (data)=>({
+    type:GET_CART_SUCCESS,
+    payload:data
+});
+export const getCartError = (data)=>({
+    type:GET_CART_ERROR,
     payload:data
 });

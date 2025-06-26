@@ -3,6 +3,8 @@ import { userAuth } from '../model/userAuthModel.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
+import { cartModel } from '../model/cartModel.js';
+import mongoose from 'mongoose';
 
 dotenv.config();
 
@@ -89,10 +91,20 @@ try {
 }
 });
 
-userAuthRouter.get('/addToCart',verifyToken,(req,res)=>{
+userAuthRouter.post('/addToCart',async(req,res)=>{
 try {
   console.log(req.body)
-  res.status(200).send({'message':'added to cart'})
+  const {cover,title,price,count} = req.body;
+  const cartData = new cartModel();
+  cartData.bookCover = cover;
+  cartData.title = title;
+  cartData.price = price;
+  cartData.count = count;
+  cartData.total = count * price;
+ 
+  await cartData.save();
+  console.log(cartData)
+  res.status(200).send({'message':'book added to Cart successfully.'})
 } catch (error) {
      console.error("Error creating user:", error);
     return res.status(500).json({
@@ -100,6 +112,44 @@ try {
     });
 }
 });
+
+userAuthRouter.get('/getCartData',async(req,res)=>{
+try {
+  console.log(req.body)
+  const cart = await cartModel.find();
+  res.status(200).send({'Cart':cart})
+} catch (error) {
+     console.error("Error creating user:", error);
+    return res.status(500).json({
+      message: "Server error occurred.",
+    });
+}
+});
+
+userAuthRouter.delete('/deleteBookFromCart/:id', async (req, res) => {
+  try {
+    console.log(req.body);
+    const _id = req.params.id;
+
+    // Validate MongoDB ObjectId
+    // if (!mongoose.Types.ObjectId.isValid(_id)) {
+    //   return res.status(400).json({ message: 'Invalid ID format.' });
+    // }
+
+    const deletedBook = await cartModel.findByIdAndDelete(_id);
+
+    if (!deletedBook) {
+      return res.status(404).json({ message: 'No Book found with given ID.' });
+    }
+
+    res.status(200).json({ message: 'Book Deleted Successfully.' });
+
+  } catch (error) {
+    console.error("Error deleting book from cart:", error);
+    res.status(500).send({ message: "Server error occurred." });
+  }
+});
+
 
 // Middleware to verify token
 function verifyToken(req, res, next) {

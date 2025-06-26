@@ -7,11 +7,27 @@ const AxiosInstance = axios.create({
     
 
 
-export const  addToCartApiCall = (data)=>{
+export const  getCartDataApiCall = (data)=>{
 
-    return AxiosInstance.post(`user/addToCart`, data, {
+  
+
+            return AxiosInstance.get(`user/getCartData`);
+
+}
+
+export const addToCartApiCall = (data)=>{
+  return AxiosInstance.post(`user/addToCart`,data, {
           headers: {
             "Content-Type": "application/json",
           },
         })
 }
+
+export const deleteBookFromCartApiCall = (id)=>{
+  return AxiosInstance.delete(`user/deleteBookFromCart/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+}
+
