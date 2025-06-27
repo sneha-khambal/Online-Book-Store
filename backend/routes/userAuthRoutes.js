@@ -126,6 +126,20 @@ try {
 }
 });
 
+
+userAuthRouter.get('/getCartDataCount',async(req,res)=>{
+try {
+  console.log(req.body)
+  const cartCount = await cartModel.find();
+  res.status(200).send(cartCount.length)
+} catch (error) {
+     console.error("Error creating user:", error);
+    return res.status(500).json({
+      message: "Server error occurred.",
+    });
+}
+});
+
 userAuthRouter.delete('/deleteBookFromCart/:id', async (req, res) => {
   try {
     console.log(req.body);
@@ -150,6 +164,24 @@ userAuthRouter.delete('/deleteBookFromCart/:id', async (req, res) => {
   }
 });
 
+
+userAuthRouter.delete('/makeCartEmpty', async (req, res) => {
+  try {
+    console.log(req.body);
+  
+    const deletedBook = await cartModel.deleteMany({});
+console.log(deletedBook)
+    if (deletedBook.deletedCount == 0) {
+      return res.status(404).json({ message: 'There is no data to delete.' });
+    }
+
+    res.status(200).json({ message: 'All Books Deleted Successfully.' });
+
+  } catch (error) {
+    console.error("Error deleting book from cart:", error);
+    res.status(500).send({ message: "Server error occurred." });
+  }
+});
 
 // Middleware to verify token
 function verifyToken(req, res, next) {

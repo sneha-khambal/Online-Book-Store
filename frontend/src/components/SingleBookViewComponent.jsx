@@ -44,9 +44,9 @@ export const SingleBookViewComponent = () => {
 
   return (
     <>
-      <div className="grid grid-cols-2 place-items-center gap-0 mt-25 mx-50">
+      <div className="flex gap-20 place-items-center  mt-25 mx-100 ">
         <img
-          className="h-[250px]"
+          className="h-[500px]  "
           src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
           alt={book.title}
         />

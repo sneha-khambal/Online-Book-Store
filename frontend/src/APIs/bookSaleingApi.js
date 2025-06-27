@@ -8,12 +8,10 @@ const AxiosInstance = axios.create({
 
 
 export const  getCartDataApiCall = (data)=>{
-
-  
-
-            return AxiosInstance.get(`user/getCartData`);
+  return AxiosInstance.get(`user/getCartData`);
 
 }
+
 
 export const addToCartApiCall = (data)=>{
   return AxiosInstance.post(`user/addToCart`,data, {
@@ -31,3 +29,18 @@ export const deleteBookFromCartApiCall = (id)=>{
         })
 }
 
+
+
+export const deleteAllBooksFromCartApiCall = (id)=>{
+  return AxiosInstance.delete(`user/makeCartEmpty`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+}
+
+
+export const  getCartDataCountApiCall = ()=>{
+  return AxiosInstance.get(`user/getCartDataCount`);
+
+}

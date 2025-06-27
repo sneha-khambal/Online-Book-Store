@@ -10,10 +10,23 @@ import {
 import { DropdownComponent } from "./dropdownComponent";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { getCartDataCountApiCall } from "../APIs/bookSaleingApi";
 
 export function StickyNavbar({ title }) {
   const [hideNav, setHideNav] = useState(window.innerWidth <= 700);
   const [openNav, setOpenNav] = useState(false);
+  const [cartDataCount, setCartDataCount] = useState(0);
+
+    useEffect(()=>{
+          getCartDataCountApiCall().then(
+               (res)=>{
+               console.log(res.data)
+   setCartDataCount(res.data)
+               }
+           ).catch(
+               (err)=>{console.log(err)}
+           )
+  },[])
 
   useEffect(() => {
     const handleResize = () => {
@@ -128,7 +141,7 @@ export function StickyNavbar({ title }) {
   return (
     <div className="  w-[calc(100%+48px)] overflow-hidden px-5 lg:px-20">
       <Navbar
-        className={`sticky top-0 z-10 h-max max-w-full rounded-none  bg-white text-black mt-4 `}
+        className={`sticky top-0 z-10 h-max max-w-full rounded-none shadow-none  bg-white text-black mt-4 `}
       >
         <div className="flex items-center justify-between text-blue-gray-900">
           <Typography
@@ -165,6 +178,8 @@ export function StickyNavbar({ title }) {
                       <div className="flex items-center  lg:mr-[5rem]">
                         <Link to={`/addToCart`}>
                         <FaShoppingCart size={50} />
+                                      <div className="bg-yellow-400 text-white text-xl text-center p-1 sticky -mt-6 rounded-full w-10 h-10">{cartDataCount}</div>
+
                         </Link>
                       </div>
                     ) : (
@@ -222,6 +237,8 @@ export function StickyNavbar({ title }) {
             {sectionList}
             <Link to={`/addToCart`}>
               <FaShoppingCart size={30} />
+               <div className="bg-yellow-400 text-white text-sm text-center  sticky -mt-5 rounded-full w-5 h-5">{cartDataCount}</div>
+
             </Link>
           </MobileNav>
         )}
