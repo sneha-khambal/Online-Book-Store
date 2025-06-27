@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
 import hook from '../redux/reduxHook';
-
+import { useParams } from 'react-router-dom';
 
 export const AccountPageComponent = () => {
       const {
@@ -10,6 +10,8 @@ export const AccountPageComponent = () => {
     formState: { errors },
     reset,
   } = useForm();
+const {type} = useParams();
+
 
   const {
         accountCreationData,accountCreationLoading,accountCreationError,fetchAccountCreationData
@@ -30,13 +32,15 @@ export const AccountPageComponent = () => {
 
 
   }
+  console.log('type',type)
 
   return (
     
     <div className="grid grid-rows-2 place-items-center h-100 my-25">
-        <h1  >Create Acount</h1>
+        <h1  >{type == 'signUp' ? 'Create Acount' : 'Sign In'}</h1>
 
 <form className="max-w-md mx-auto rounded shadow border-black p-5 m-0 p-0 "
+style={{'width': '400px'}}
  onSubmit={handleSubmit(onSubmitFunction)}>
   <div className="relative z-0 w-full mb-5 group">
       <input
@@ -59,7 +63,9 @@ export const AccountPageComponent = () => {
    {errors.password && <p className="text-red-600 text-sm mt-1">{errors.password.message}</p>}
 
   </div>
-  <div className="relative z-0 w-full mb-5 group">
+  {type == 'signUp' ? 
+  <>
+   <div className="relative z-0 w-full mb-5 group">
       <input 
       {...register("confirmPassword", { required: "confirm password is required" })}
 
@@ -96,6 +102,10 @@ export const AccountPageComponent = () => {
 
     </div>
   </div>
+  </>
+   : ''}
+
+ 
  
   <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
 </form>

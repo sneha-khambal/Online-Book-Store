@@ -9,6 +9,7 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import ChildrenBookComponent from './childrenBookComponent';
 import hook from '../redux/reduxHook';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 
 
@@ -50,12 +51,14 @@ export const SliderComponent = ({bookType,slide,bgImage}) => {
         <SwiperSlide key={idx}>
           <div className="flex flex-col gap-6 p-4">
             { group && group.map((book, index) => (
+          <Link to={`/bookView/${bookType}`} state={{ book }}>
               <div key={index} className="flex flex-col gap-2 items-center justify-center relative group overflow-hidden  ">
                 <div className='absolute inset-0 bg-white  -translate-y-full group-hover:opacity-50 group-hover:translate-y-0 transition-all duration-500'></div>
                 <img className='h-[200px]' src={`https://covers.openlibrary.org/b/id/${book.cover_i}-S.jpg`} alt={book.title} />
                 <h5 className="font-semibold text-center">{book.title}</h5>
                 <small>$20</small>
               </div>
+          </Link>
             ))}
           </div>
         </SwiperSlide>
@@ -72,6 +75,7 @@ export const SliderComponent = ({bookType,slide,bgImage}) => {
     >
       {childrenBooksData.map((book, index) => (
         <SwiperSlide key={index}>
+<Link to={ `/bookView/${bookType}`} state={{ book }} >
   <div className=" flex flex-col gap-3 items-center justify-center relative group overflow-hidden">
          <div className='absolute inset-0 bg-white  -translate-y-full group-hover:opacity-50 group-hover:translate-y-0 transition-all duration-500'></div>
 
@@ -80,6 +84,7 @@ export const SliderComponent = ({bookType,slide,bgImage}) => {
          <small>$20</small>
          
         </div> 
+</Link>
               </SwiperSlide>
       ))}
     </Swiper>

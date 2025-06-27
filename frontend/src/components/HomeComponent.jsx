@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 import { FaCalendar, FaChevronDown, FaShoppingCart } from "react-icons/fa";
 import { DropdownComponent } from "./dropdownComponent";
 import ChildrenBookComponent from "./childrenBookComponent";
 import { SliderComponent } from "./SliderComponent";
+
 
 import {
   FaShippingFast,
@@ -41,6 +42,9 @@ const HomeComponent = () => {
        const {
       childrenBooksData 
    } = hook.useChildrenBooksHook();
+
+
+
 
   return (
     // <div>
