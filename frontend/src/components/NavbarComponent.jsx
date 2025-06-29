@@ -69,9 +69,9 @@ export function StickyNavbar({ title }) {
         color="blue-gray"
         className="  font-normal"
       >
-        <a href="#" className="flex items-center">
+        <Link to={'/checkout'}>
           Checkout
-        </a>
+        </Link>
       </Typography>
       <Typography
         as="li"

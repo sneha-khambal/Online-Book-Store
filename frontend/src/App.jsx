@@ -7,6 +7,7 @@ import  HomeComponent  from './components/HomeComponent';
 import { AccountPageComponent } from './components/AccountPageComponent';
 import { SingleBookViewComponent } from './components/SingleBookViewComponent';
 import { AddToCartComponent } from './components/addToCartComponent';
+import { CheckoutComponent } from './components/CheckoutComponent';
 
 
 
@@ -14,7 +15,6 @@ import { AddToCartComponent } from './components/addToCartComponent';
 
 
 function App() {
- const [bookType , setBookType] = useState('comics')
  
  
   return (
@@ -25,6 +25,7 @@ function App() {
     <Route path='/myAccount/:type' element={<AccountPageComponent   />}/>
     <Route path='/addToCart' element={<AddToCartComponent   />}/>
     <Route path='/bookView/:bookType' element={<SingleBookViewComponent   />}/>
+    <Route path='/checkout' element={<CheckoutComponent   />}/>
     {/* <Route path='/signIn' element={<AccountPageComponent  type={'signIn'}  />}/> */}
     {/* <Route path='/books/comics' element={<ChildrenBookComponent bookType={'comics'} />}/> */}
     </Routes>
