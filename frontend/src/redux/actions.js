@@ -14,6 +14,10 @@ export const ADD_TO_CART_ERROR = 'ADD_TO_CART_ERROR';
 export const GET_CART_DATA = 'GET_CART_DATA';
 export const GET_CART_SUCCESS = 'GET_CART_SUCCESS';
 export const GET_CART_ERROR = 'GET_CART_ERROR';
+
+export const SAVE_CHECKOUT_DATA = 'SAVE_CHECKOUT_DATA';
+export const SAVE_CHECKOUT_SUCCESS = 'SAVE_CHECKOUT_SUCCESS';
+export const SAVE_CHECKOUT_ERROR = 'SAVE_CHECKOUT_ERROR';
  
 console.log('action')
 export const fetchBooksData =(data)=>({
@@ -72,5 +76,19 @@ export const getCartSuccess = (data)=>({
 });
 export const getCartError = (data)=>({
     type:GET_CART_ERROR,
+    payload:data
+});
+
+export const saveCheckoutDataAction =(data)=>({
+    type: SAVE_CHECKOUT_DATA,
+    payload:data
+});
+
+export const saveCheckoutSuccess = (data)=>({
+    type:SAVE_CHECKOUT_SUCCESS,
+    payload:data
+});
+export const saveCheckoutError = (data)=>({
+    type:SAVE_CHECKOUT_ERROR,
     payload:data
 });

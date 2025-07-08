@@ -183,6 +183,20 @@ console.log(deletedBook)
   }
 });
 
+
+userAuthRouter.post('/checkout', async (req, res) => {
+  try {
+    console.log(req.body);
+  
+ 
+    res.status(200).json({ message: 'checkout data recived' });
+
+  } catch (error) {
+    console.error("Error deleting book from cart:", error);
+    res.status(500).send({ message: "Server error occurred." });
+  }
+});
+
 // Middleware to verify token
 function verifyToken(req, res, next) {
   const token = req.headers['authorization']?.split(' ')[1]; // Bearer TOKEN

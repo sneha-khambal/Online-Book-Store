@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import hook from "../redux/reduxHook";
 
 export const CheckoutComponent = () => {
   const {
@@ -8,55 +9,81 @@ export const CheckoutComponent = () => {
     formState: { errors },
     reset,
   } = useForm();
+  const [finalTotal, setFinalTotal] = useState(0);
+
+  const {
+        saveCheckoutDataLoading,saveCheckoutData,saveCheckoutDataError,saveCheckoutFunction
+    } = hook.useCheckoutHook();
+     const {
+        getCartLoading,
+        getCartSuccessData,
+        getCartErrorData,
+        fetchCartData,
+      } = hook.useGetCartHook();
+     
+      
+      useEffect(()=>{fetchCartData()},[])
+        useEffect(() => {
+          if (getCartSuccessData?.Cart != undefined) {
+            const total = getCartSuccessData.Cart.reduce((acc, book) => {
+              return acc + book.total;
+            }, 0);
+            setFinalTotal(total);
+          }
+        }, [getCartSuccessData]);
 
   const [hideAddressBox, setHideAddressBox] = useState(false);
 
-   const deliveryAddress = (
+  const DeliveryAddressForm = ({ prefix, register }) => (
     <div className="grid grid-cols-6 gap-3">
       <input
-        {...register("country", { required: "Country is required" })}
+        {...register(`${prefix}.country`, { required: "Country is required" })}
         type="text"
         className="col-span-6 border-2 border-gray-200 rounded shadow p-2 w-full mb-3"
         placeholder="Country"
       />
       <input
-        {...register("firstName", { required: "First name is required" })}
+        {...register(`${prefix}.firstName`, {
+          required: "First name is required",
+        })}
         type="text"
         className="col-span-3 border-2 border-gray-200 rounded shadow p-2 w-full mb-3"
         placeholder="First Name"
       />
       <input
-        {...register("lastName", { required: "Last name is required" })}
+        {...register(`${prefix}.lastName`, {
+          required: "Last name is required",
+        })}
         type="text"
         className="col-span-3 border-2 border-gray-200 rounded shadow p-2 w-full mb-3"
         placeholder="Last Name"
       />
       <input
-        {...register("address", { required: "Address is required" })}
+        {...register(`${prefix}.address`, { required: "Address is required" })}
         type="text"
         className="col-span-3 border-2 border-gray-200 rounded shadow p-2 w-full mb-3"
         placeholder="Address"
       />
       <input
-        {...register("apartment", { required: "Apartment is required" })}
+        {...register(`${prefix}.apartment` )}
         type="text"
         className="col-span-3 border-2 border-gray-200 rounded shadow p-2 w-full mb-3"
         placeholder="Apartment"
       />
       <input
-        {...register("city", { required: "City is required" })}
+        {...register(`${prefix}.city`, { required: "City is required" })}
         type="text"
         className="col-span-2 border-2 border-gray-200 rounded shadow p-2 w-full mb-3"
         placeholder="City"
       />
       <input
-        {...register("state", { required: "State is required" })}
+        {...register(`${prefix}.state`, { required: "State is required" })}
         type="text"
         className="col-span-2 border-2 border-gray-200 rounded shadow p-2 w-full mb-3"
         placeholder="State"
       />
       <input
-        {...register("pinCode", { required: "PIN code is required" })}
+        {...register(`${prefix}.pinCode`, { required: "PIN code is required" })}
         type="text"
         className="col-span-2 border-2 border-gray-200 rounded shadow p-2 w-full mb-3"
         placeholder="PIN Code"
@@ -65,58 +92,48 @@ export const CheckoutComponent = () => {
   );
 
   const onSubmitFunction = (data) => {
-    alert("Form submitted");
     console.log("Submitted Data:", data);
-    const address = {
-      country:data.country,
-      firstname: data.firstName,
-      lastname: data.lastName,
-      city:data.city,
-      apartment:data.apartment,
-      state: data.state,
-      pinCode:data.pinCode
-    };
-    
-    const checkout = 
-      {
-        email: data.email,
-    
-        firstBillingAddress:data.billingOption == 'same' ?address :'',
-    
-        secondBillingAddress: data.billingOption == 'different' ?address :'',
-    
-        shippingMethod: data.shippingMethod,
-    
-        paymentMethod:data.shippingMethod,
-      } 
-      console.log(checkout)
-   
-  };
-
+const formData = new FormData();
  
+      formData.append('email', data.email)
+      formData.append('shippingAddress',  JSON.stringify(data.shipping))
+      formData.append('billingAddress',  JSON.stringify(data.billing))
+      formData.append('paymentMethod', data.paymentMethod)
+      formData.append('billingOption', data.billingOption)
+     formData.append ('emailbox', data.emailbox)
+      formData.append('saveAddress', data.saveAddress)
+    
+      if(data.email !== ''){
+    saveCheckoutFunction(formData)}
+  };
 
   return (
     <div className="grid lg:grid-cols-2 mx-10 my-10 gap-10">
-      <form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit(onSubmitFunction)}>
+      <form
+        className="grid grid-cols-1 gap-4"
+        onSubmit={handleSubmit(onSubmitFunction)}
+      >
         <h1 className="text-2xl font-medium">Contact</h1>
 
         <input
           {...register("email", { required: "Email is required" })}
-          type="email" 
+          type="email"
           className="border-2 border-gray-200 rounded shadow p-2 w-full"
           placeholder="Email Address"
         />
-        {errors.email && <p className="text-red-600 text-sm">{errors.email.message}</p>}
+        {errors.email && (
+          <p className="text-red-600 text-sm">{errors.email.message}</p>
+        )}
 
         <div>
-          <input type="checkbox" {...register("subscribe")} id="emailBox" />
+          <input type="checkbox" {...register("emailbox")} id="emailBox" />
           <label htmlFor="emailBox" className="ml-2">
             Email me with news and offers
           </label>
         </div>
 
         <h2 className="text-2xl font-medium mt-4">Delivery</h2>
-        {deliveryAddress}
+        <DeliveryAddressForm prefix={"shipping"} register={register} />
 
         <div>
           <input type="checkbox" {...register("saveAddress")} id="addressBox" />
@@ -125,16 +142,18 @@ export const CheckoutComponent = () => {
           </label>
         </div>
 
-        <h2 className="text-xl font-medium mt-4">Shipping Method</h2>
+        {/* <h2 className="text-xl font-medium mt-4">Shipping Method</h2>
         <input
           {...register("shippingMethod", { required: true })}
           type="text"
           placeholder="e.g., International Shipping"
           className="border-2 border-gray-200 rounded shadow p-2 w-full"
-        />
+        /> */}
 
         <h2 className="text-2xl font-medium mt-4">Payment</h2>
-        <small className="text-gray-500">All transactions are secure and encrypted.</small>
+        <small className="text-gray-500">
+          All transactions are secure and encrypted.
+        </small>
         <input
           {...register("paymentMethod")}
           type="text"
@@ -146,7 +165,12 @@ export const CheckoutComponent = () => {
         <div className="border-2 border-gray-200 rounded shadow p-3">
           <div className="py-2">
             <label>
-              <input type="radio" value="same" {...register("billingOption")} defaultChecked />
+              <input
+                type="radio"
+                value="same"
+                {...register("billingOption")}
+                defaultChecked
+              />
               <span className="ml-2">Same as shipping address</span>
             </label>
           </div>
@@ -161,7 +185,12 @@ export const CheckoutComponent = () => {
               <span className="ml-2">Use a different billing address</span>
             </label>
 
-            {hideAddressBox && <div className="mt-5">{deliveryAddress}</div>}
+            {hideAddressBox && (
+              <div className="mt-5">
+                {" "}
+                <DeliveryAddressForm prefix={"billing"} register={register} />
+              </div>
+            )}
           </div>
         </div>
 
@@ -174,29 +203,37 @@ export const CheckoutComponent = () => {
       </form>
 
       <div>
-        <h1 className="lg:hidden mb-10 text-center font-medium text-xl">Order Summary</h1>
+        <h1 className="lg:hidden mb-10 text-center font-medium text-xl">
+          Order Summary
+        </h1>
+       
+            {getCartSuccessData != undefined &&  getCartSuccessData.Cart != undefined && getCartSuccessData.Cart.map((book, i) => (
         <div className="grid grid-cols-2 gap-5 text-lg mb-5">
-          <small className="text-left flex gap-2">
+                 <small className="text-left flex gap-2">
+                  
+                  { book.count > 1 ?<small className="bg-gray-500 transparent text-white text-sm text-center  absolute
+                  ml-7 -mt-2 rounded-full w-5 h-5">{ book.count}</small> :'' }
             <img
-              src="https://covers.openlibrary.org/b/id/12605605-M.jpg"
-              alt="img"
+              src={`https://covers.openlibrary.org/b/id/${book.bookCover}-M.jpg`}
+                          alt={book.title}
               className="h-15 w-10"
             />
-            title
+            {book.title}
           </small>
-          <small className="text-right">Rs. 34</small>
+          <small className="text-right">{book.total}</small>
         </div>
+            ))}
         <div className="grid grid-cols-2 text-lg mb-5">
           <small className="text-left">Subtotal</small>
-          <small className="text-right">Rs. 34</small>
+          <small className="text-right">Rs. {finalTotal}</small>
         </div>
         <div className="grid grid-cols-2 text-lg mb-5">
           <small className="text-left">Shipping</small>
-          <small className="text-right">Rs. 34</small>
+          <small className="text-right">Rs. {finalTotal}</small>
         </div>
         <div className="grid grid-cols-2 text-xl mb-5">
           <strong className="text-left">Total</strong>
-          <strong className="text-right">Rs. 68</strong>
+          <strong className="text-right">Rs. {finalTotal}</strong>
         </div>
       </div>
     </div>

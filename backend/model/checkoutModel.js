@@ -28,22 +28,22 @@ const addressSchema = {
   pinCode: {
     type: String,
     required: true,
-  }
+  }, 
 };
 
 const checkoutSchema = new mongoose.Schema(
   {
     email: {
-      type: String,
+      type: String, 
       required: true,
     },
 
-    firstBillingAddress: {
-      type: addressSchema,
+    shippingAddress: {
+      type: addressSchema, 
       required: true,
     },
 
-    secondBillingAddress: {
+    billingAddress: {
       type: addressSchema,
       required: false,
     },
@@ -57,6 +57,14 @@ const checkoutSchema = new mongoose.Schema(
       type: String,
       default: 'Cash on Delivery (COD)',
     },
+     emailbox: {
+      type: Boolean,
+      required: true,
+    },
+      saveAddress: {
+      type: Boolean,
+      required: true,
+    }
   },
   {
     timestamps: true,

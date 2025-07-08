@@ -15,3 +15,13 @@ export const  accountCreationApiCall = (data)=>{
           },
         })
 }
+
+
+export const  checkoutApiCall = (data)=>{
+
+    return AxiosInstance.post(`user/checkout`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+}

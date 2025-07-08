@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { accountCreationAction, accountCreationError, fetchBooksData, getCartDataAction,addToCartAction } from "./actions";
+import { accountCreationAction, accountCreationError, fetchBooksData, getCartDataAction,addToCartAction, saveCheckoutDataAction } from "./actions";
 
   const useChildrenBooksHook = ()=>{
     const dispatch = useDispatch();
@@ -75,4 +75,23 @@ dispatch(getCartDataAction( ))
 
 }
 
-export default{ useChildrenBooksHook , useAccountCreationHook,useGetCartHook,useAddToCartHook};
+
+ const useCheckoutHook = ( )=>{
+    const dispatch = useDispatch();
+    
+     const saveCheckoutDataLoading = useSelector((state)=>state.checkout.saveCheckoutDataLoading);
+    const saveCheckoutData = useSelector((state)=>state.checkout.saveCheckoutData);
+    const saveCheckoutDataError = useSelector((state)=>state.checkout.saveCheckoutDataError);
+    
+    const saveCheckoutFunction = useCallback((data)=>{
+dispatch(saveCheckoutDataAction(data))
+    },[dispatch]);
+
+    return{
+        saveCheckoutDataLoading,saveCheckoutData,saveCheckoutDataError,saveCheckoutFunction
+    }
+
+
+}
+
+export default{ useChildrenBooksHook , useAccountCreationHook,useGetCartHook,useAddToCartHook,useCheckoutHook};
